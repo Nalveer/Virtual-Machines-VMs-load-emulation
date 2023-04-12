@@ -15,15 +15,20 @@ def transferScripts(vm_name,script_name):
 
 
 	#get the ip address of the target VM
-	ip = getVM_name(vm_name)
+	ip = getVM_ip(vm_name)
 	#get the path to the script directories
 	path = get_path(script_name)
 	#where to send script inside vm
-	vmPath = getVM_path()
+	vmPath = getVM_path(vm_name)
 
 	#get access credentials
 	user = get_user()
 	password = get_password()
+
+	
+	if ip is None or path is None or user is None or password is None:
+		print("Input Error")
+		return False
 	
 	try:
 		p = subprocess.call(['sshpass','-p',password,'scp','-o','StrictHostKeyChecking=no',path+'',user+'@'+ip+':'+vmPath])
@@ -45,23 +50,44 @@ def transferScripts(vm_name,script_name):
 def startVMLoad(vm,duration,cpu,mem,disk,io,util,script):
 
 	#get the ip address of the target VM
-	ip = getVM_name(vm_name)
+	ip = getVM_ip(vm_name)
 
-	#get the path to the target load script 
-	path = get_pathToScript(script)
+	#get the path to the vm load script directory
+	path = getVM_path(vm)
 
 
 	#get access credentials
 	user = get_user()
 	password = get_password()
 
+	if ip is None or path is None or user is None or password is None:
+		print("Input Error")
+		return False
 	try:
-		p = subprocess.Popen(['sshpass','-p',password,'ssh',user+'@'+ip,'python3  '+str(path)+' '+str(cpu)+' '+str(io)+' '+str(mem)+' '+str(disk)+' '+str(util)+' '+str(duration*60)],stdout=subprocess.PIPE,universal_newlines=True)
+		p = subprocess.Popen(['sshpass','-p',password,'ssh',user+'@'+ip,'python3  '+str(path)+str(script)+' '+str(cpu)+' '+str(io)+' '+str(mem)+' '+str(disk)+' '+str(util)+' '+str(duration*60)],stdout=subprocess.PIPE,universal_newlines=True)
 		print("Load Started on VM",vm)
 		return True
 
 	except Exception as e:
 		print("Load Failed:",p)
+		return False
+
+
+def getVM_ip(vm_name):
+	print("Not implemented")
+
+def get_path(script_name):
+	print("Not implemented")
+
+def getVM_path(vm_name):
+	print("Not implemented")
+
+def get_user():
+	print("Not implemented")
+
+def get_password():
+	print("Not implemented")
+
 
 
 if __name__ == '__main__':
