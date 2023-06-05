@@ -6,7 +6,7 @@ The objective of this project was to create varying levels of resource utilizati
 
 **Main dependencies**;
 
-- stress (https://linux.die.net/man/1/stress)
+- Stress-ng (https://linux.die.net/man/1/stress)
 - python3
 
 
