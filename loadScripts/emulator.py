@@ -64,7 +64,7 @@ def startVMLoad(vm,duration,cpu,mem,disk,io,util,script):
 		print("Input Error")
 		return False
 	try:
-		p = subprocess.Popen(['sshpass','-p',password,'ssh',user+'@'+ip,'python3  '+str(path)+str(script)+' '+str(cpu)+' '+str(io)+' '+str(mem)+' '+str(disk)+' '+str(util)+' '+str(duration*60)],stdout=subprocess.PIPE,universal_newlines=True)
+		p = subprocess.Popen(['sshpass','-p',password,'ssh',user+'@'+ip,'python3  '+str(path)+'loadScriptName'+' '+str(cpu)+' '+str(io)+' '+str(mem)+' '+str(disk)+' '+str(util)+' '+str(duration*60)],stdout=subprocess.PIPE,universal_newlines=True)
 		print("Load Started on VM",vm)
 		return True
 
